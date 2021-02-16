@@ -53,20 +53,23 @@ In solr dashboard, we can select `users` core and get query results like this:
 ![image](https://user-images.githubusercontent.com/33726233/108095754-c6fea980-70b2-11eb-8fe2-18f839e9ce71.png)
 
 ### Endpoints
-1. Get all users
+1. Get all users  
 ![image](https://user-images.githubusercontent.com/33726233/108096258-5dcb6600-70b3-11eb-9d0a-94512d345432.png)
-2. Get user by id
+
+2. Get user by id  
 ![image](https://user-images.githubusercontent.com/33726233/108096368-7b98cb00-70b3-11eb-9ffd-3ce7228e1296.png)
-3. Add new user
-![image](https://user-images.githubusercontent.com/33726233/108096537-a8e57900-70b3-11eb-8a03-87239e7058b0.png)
-Output from `MyProject - Main`:
+
+3. Add new user  
+![image](https://user-images.githubusercontent.com/33726233/108096537-a8e57900-70b3-11eb-8a03-87239e7058b0.png)  
+
+Output from `MyProject - Main`:  
 ```
 New user with id 19 has been stored to mysql
 Publishing userId to rabbitmq
 creating rabbitmq client..
  [x] Sent { action: 'add', userId: '19' }
 ```
-Output from `MyProject - Rabbitmq`:
+Output from `MyProject - Rabbitmq`:  
 ```
  [x] Received {
   fields: [Object],
@@ -84,16 +87,18 @@ Output from `MyProject - Rabbitmq`:
 }
 Response: { status: 0, QTime: 149 }
 ```
-4. Remove a user by id
-![image](https://user-images.githubusercontent.com/33726233/108096857-08dc1f80-70b4-11eb-9642-119226aa5f5d.png)
-Output from `MyProject - Main`:
+
+4. Remove a user by id  
+![image](https://user-images.githubusercontent.com/33726233/108096857-08dc1f80-70b4-11eb-9642-119226aa5f5d.png)  
+
+Output from `MyProject - Main`:  
 ```
 User with username Ongester Rick has been removed from mysql
 Publishing userId to rabbitmq
 creating rabbitmq client..
  [x] Sent { action: 'remove', userId: '19' }
 ```
-Output from `MyProject - Rabbitmq`:
+Output from `MyProject - Rabbitmq`: 
 ```
  [x] Received {
   fields: [Object],
@@ -105,9 +110,10 @@ Output from `MyProject - Rabbitmq`:
 [2021-02-17T00:06:34.953] [DEBUG] solr-node - [_requestPost] data:  { delete: { query: 'userid:19' } }
 Response: { status: 0, QTime: 44 }
 ```
-5. Search by firstname_ngram
-![image](https://user-images.githubusercontent.com/33726233/108097242-76884b80-70b4-11eb-885c-80313b277ec9.png)
-Output from `MyProject - Main`:
+
+5. Search by firstname_ngram  
+![image](https://user-images.githubusercontent.com/33726233/108097242-76884b80-70b4-11eb-885c-80313b277ec9.png)  
+Output from `MyProject - Main`:  
 ```
 [2021-02-17T00:08:40.472] [DEBUG] solr-node - [q] params:  [ 'q=firstname_ngram:atrick' ]
 Searching for username atrick
