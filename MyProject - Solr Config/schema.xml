@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="user.8.4.1-v1" version="1.6">
+  <field name="_version_" type="long" indexed="true" stored="true"/>
+  <field name="userid" type="string" indexed="true" stored="true" required="true" multiValued="false"/>
+  <field name="firstname" type="text_general" indexed="true" stored="true" required="true"/>
+  <field name="firstname_s" type="string" indexed="true" stored="false" required="true"/>
+  <field name="firstname_ngram" type="ngram_text" indexed="true" stored="false" required="true"/>
+  <field name="lastname" type="text_general" indexed="true" stored="true" required="true"/>
+  <field name="age" type="int" indexed="true" stored="false"/>
+
+  <uniqueKey>userid</uniqueKey>
+
+  <copyField source="firstname" dest="firstname_s"/>
+  <copyField source="firstname" dest="firstname_ngram"/>
+
+  <dynamicField name="*_fi" type="float" indexed="true" stored="false" multiValued="true"/>
+  <dynamicField name="*_ii" type="int" indexed="true" stored="false" multiValued="true"/>
+  <dynamicField name="*_si" type="string" indexed="true" stored="false" multiValued="true"/>
+  <dynamicField name="*_fis" type="float" indexed="true" stored="false" multiValued="false"/>
+  <dynamicField name="*_iis" type="int" indexed="true" stored="false" multiValued="false"/>
+  <dynamicField name="*_sis" type="string" indexed="true" stored="false" multiValued="false"/>
+
+  <fieldType name="float" class="solr.FloatPointField" docValues="true" useDocValuesAsStored="false"/>
+  <fieldType name="int" class="solr.IntPointField" positionIncrementGap="0" docValues="true" useDocValuesAsStored="false"/>
+  <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true" useDocValuesAsStored="false"/>
+  <fieldType name="date" class="solr.DatePointField" positionIncrementGap="0" docValues="true" useDocValuesAsStored="false"/>
+  <fieldType name="long" class="solr.LongPointField" positionIncrementGap="0" docValues="true" useDocValuesAsStored="false"/>
+
+  <fieldType name="ngram_text" class="solr.TextField" positionIncrementGap="100">
+    <analyzer type="index">
+      <charFilter class="solr.PatternReplaceCharFilterFactory" pattern="([^a-zA-Z.0-9])" replacement=""/>
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+      <filter class="solr.NGramFilterFactory" minGramSize="1" maxGramSize="20"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+
+  <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+    <analyzer type="index">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <!-- <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" /> -->
+      <!-- in this example, we will only use synonyms at query time
+      <filter class="solr.SynonymGraphFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+      -->
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+    <analyzer type="query">
+      <tokenizer class="solr.StandardTokenizerFactory"/>
+      <!-- <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" /> -->
+      <!-- <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/> -->
+      <filter class="solr.LowerCaseFilterFactory"/>
+    </analyzer>
+  </fieldType>
+</schema>

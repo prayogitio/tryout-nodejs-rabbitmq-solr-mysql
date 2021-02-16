@@ -1,0 +1,22 @@
+{
+  "name": "rabbitmq",
+  "version": "1.0.0",
+  "description": "",
+  "main": "receive.js",
+  "dependencies": {
+    "amqplib": "^0.6.0",
+    "log4js": "^6.3.0",
+    "mysql": "^2.14.1",
+    "solr-node": "^1.2.1"
+  },
+  "devDependencies": {
+    "ts-node": "3.3.0",
+    "@types/node": "^8.0.29",
+    "typescript": "3.3.3333"
+  },
+  "scripts": {
+    "start": "ts-node receive.ts"
+  },
+  "author": "",
+  "license": "ISC"
+}
